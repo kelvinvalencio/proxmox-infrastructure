@@ -2,3 +2,4 @@
 *.log
 .vault_pass
 __pycache__/
+inventory/hosts.yaml
