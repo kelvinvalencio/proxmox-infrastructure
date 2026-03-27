@@ -1,0 +1,14 @@
+---
+- name: restart systemd-logind
+  ansible.builtin.systemd:
+    name: systemd-logind
+    state: restarted
+
+- name: update initramfs
+  ansible.builtin.command: update-initramfs -u
+  listen: update initramfs
+
+- name: reboot host
+  ansible.builtin.reboot:
+    reboot_timeout: 300
+  listen: reboot after initramfs

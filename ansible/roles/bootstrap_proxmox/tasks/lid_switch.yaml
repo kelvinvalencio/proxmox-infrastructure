@@ -1,0 +1,9 @@
+---
+- name: Ensure HandleLidSwitch=ignore in logind.conf
+  ansible.builtin.ini_file:
+    path: "{{ loginconf_path }}"
+    section: Login
+    option: HandleLidSwitch
+    value: ignore
+    no_extra_spaces: true
+  notify: restart systemd-logind

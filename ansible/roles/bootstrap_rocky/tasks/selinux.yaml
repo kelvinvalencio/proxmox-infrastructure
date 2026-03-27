@@ -1,0 +1,5 @@
+---
+- name: Disable SELinux (persistent)
+  ansible.posix.selinux:
+    state: disabled
+  # Requires reboot to take full effect; the play continues safely.

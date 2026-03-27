@@ -1,0 +1,10 @@
+---
+- name: Blacklist pcspkr module
+  ansible.builtin.lineinfile:
+    path: "{{ pcspkr_blacklist_file }}"
+    line: "blacklist pcspkr"
+    create: true
+    mode: '0644'
+  notify:
+    - update initramfs
+    - reboot after initramfs

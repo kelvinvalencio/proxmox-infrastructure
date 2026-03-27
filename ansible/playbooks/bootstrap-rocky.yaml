@@ -1,0 +1,6 @@
+---
+- name: Bootstrap Rocky Linux VMs
+  hosts: rocky_vms
+  become: true
+  roles:
+    - role: bootstrap_rocky

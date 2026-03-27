@@ -1,0 +1,36 @@
+---
+- name: Add Docker CE repository
+  ansible.builtin.command:
+    cmd: dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+  args:
+    creates: /etc/yum.repos.d/docker-ce.repo
+
+- name: Install Docker CE
+  ansible.builtin.yum:
+    name: docker-ce
+    state: present
+
+- name: Download docker-compose binary
+  ansible.builtin.get_url:
+    url: >-
+      https://github.com/docker/compose/releases/latest/download/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}
+    dest: "{{ docker_compose_dest }}"
+    mode: '0755'
+
+- name: Symlink docker-compose to /usr/bin
+  ansible.builtin.file:
+    src: "{{ docker_compose_dest }}"
+    dest: /usr/bin/docker-compose
+    state: link
+
+- name: Enable and start Docker
+  ansible.builtin.systemd:
+    name: docker
+    enabled: true
+    state: started
+
+- name: Add ansible_user to docker group
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: true

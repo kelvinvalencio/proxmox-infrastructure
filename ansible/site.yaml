@@ -1,0 +1,3 @@
+---
+- import_playbook: playbooks/bootstrap-rocky.yaml
+- import_playbook: playbooks/bootstrap-proxmox.yaml

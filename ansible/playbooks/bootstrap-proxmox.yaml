@@ -1,0 +1,6 @@
+---
+- name: Bootstrap Proxmox Hosts
+  hosts: proxmox_hosts
+  become: true
+  roles:
+    - role: bootstrap_proxmox

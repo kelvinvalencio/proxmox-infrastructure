@@ -1,0 +1,18 @@
+---
+timezone: Asia/Jakarta
+
+rocky_common_packages:
+  - mlocate
+  - wget
+  - epel-release
+  - zip
+  - unzip
+  - vim
+  - traceroute
+  - telnet
+  - net-tools
+  - rsync
+  - nginx
+  - nginx-mod-stream
+
+docker_compose_dest: /usr/local/bin/docker-compose

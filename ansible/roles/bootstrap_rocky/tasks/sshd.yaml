@@ -1,0 +1,21 @@
+---
+- name: Enable PasswordAuthentication in sshd_config
+  ansible.builtin.replace:
+    path: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication\s+no'
+    replace: 'PasswordAuthentication yes'
+  notify: restart sshd
+
+- name: Find drop-in configs under sshd_config.d
+  ansible.builtin.find:
+    paths: /etc/ssh/sshd_config.d/
+    patterns: "*.conf"
+  register: sshd_dropin_files
+
+- name: Enable PasswordAuthentication in sshd drop-ins
+  ansible.builtin.replace:
+    path: "{{ item.path }}"
+    regexp: '^PasswordAuthentication\s+no'
+    replace: 'PasswordAuthentication yes'
+  loop: "{{ sshd_dropin_files.files }}"
+  notify: restart sshd

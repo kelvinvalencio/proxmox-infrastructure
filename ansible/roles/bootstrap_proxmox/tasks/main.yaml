@@ -1,0 +1,13 @@
+---
+- name: Assert supported OS (Debian-family for Proxmox)
+  ansible.builtin.assert:
+    that:
+      - ansible_os_family == "Debian"
+    fail_msg: >
+      This role only supports Debian-based systems (Proxmox VE).
+      Detected OS family: {{ ansible_os_family }}
+    success_msg: "OS check passed — Debian family confirmed."
+
+- ansible.builtin.import_tasks: packages.yaml
+- ansible.builtin.import_tasks: lid_switch.yaml
+- ansible.builtin.import_tasks: beep.yaml
