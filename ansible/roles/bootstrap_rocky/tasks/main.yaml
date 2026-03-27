@@ -14,3 +14,4 @@
 - ansible.builtin.import_tasks: system.yaml
 - ansible.builtin.import_tasks: sshd.yaml
 - ansible.builtin.import_tasks: docker.yaml
+- ansible.builtin.import_tasks: set-hostname.yaml
