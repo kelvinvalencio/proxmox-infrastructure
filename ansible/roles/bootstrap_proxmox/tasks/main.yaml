@@ -8,6 +8,7 @@
       Detected OS family: {{ ansible_os_family }}
     success_msg: "OS check passed — Debian family confirmed."
 
+- ansible.builtin.import_tasks: repos.yaml
 - ansible.builtin.import_tasks: packages.yaml
 - ansible.builtin.import_tasks: lid_switch.yaml
 - ansible.builtin.import_tasks: beep.yaml

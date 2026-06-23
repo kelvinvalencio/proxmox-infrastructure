@@ -1,6 +1,5 @@
 ---
 proxmox_common_packages:
-  - mtr
   - zip
   - lm-sensors
 

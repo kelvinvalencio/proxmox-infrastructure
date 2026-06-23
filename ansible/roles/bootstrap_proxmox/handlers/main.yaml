@@ -12,3 +12,4 @@
   ansible.builtin.reboot:
     reboot_timeout: 300
   listen: reboot after initramfs
+ 
