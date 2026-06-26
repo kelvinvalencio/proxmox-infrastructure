@@ -5,3 +5,6 @@ proxmox_common_packages:
 
 pcspkr_blacklist_file: /etc/modprobe.d/blacklist.conf
 loginconf_path: /etc/systemd/logind.conf
+
+swap_size: 8G
+swap_live: false
