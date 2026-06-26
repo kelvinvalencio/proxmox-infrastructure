@@ -1,6 +1,6 @@
-# ntswell-infra
+# proxmox-infrastructure
 
-Ansible repository for bootstrapping infrastructure nodes — Rocky Linux 9 VMs and Proxmox VE bare-metal hosts.
+Bootstrap, manage proxmox host and the VMs.
 
 ---
 
