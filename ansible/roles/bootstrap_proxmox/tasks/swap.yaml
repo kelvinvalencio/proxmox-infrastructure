@@ -1,0 +1,62 @@
+---
+- name: gather swap LV info
+  community.general.lvol:
+    vg: pve
+    lv: swap
+    size: "{{ swap_size }}"
+    resizefs: false
+    shrink: false
+  check_mode: true
+  register: swap_lv_check
+  changed_when: false
+  failed_when: false
+
+- name: get current swap LV size
+  ansible.builtin.command: lvs --noheadings --units g -o lv_size /dev/pve/swap
+  register: current_swap_size
+  changed_when: false
+
+- name: resize swap LV if size differs
+  community.general.lvol:
+    vg: pve
+    lv: swap
+    size: "{{ swap_size }}"
+    resizefs: false
+    shrink: false
+  register: swap_resized
+
+- name: disable swap (live mode only)
+  ansible.builtin.command: swapoff /dev/pve/swap
+  when: swap_resized.changed and swap_live | bool
+  failed_when: false
+
+- name: format swap partition
+  ansible.builtin.command: mkswap /dev/pve/swap
+  when: swap_resized.changed
+
+- name: re-enable swap (live mode only)
+  ansible.builtin.command: swapon /dev/pve/swap
+  when: swap_resized.changed and swap_live | bool
+
+- name: notify reboot required (deferred mode)
+  ansible.builtin.debug:
+    msg: "Swap resized to {{ swap_size }} — reboot required to take effect"
+  when: swap_resized.changed and not swap_live | bool
+
+- name: ensure swap entry exists in fstab
+  ansible.posix.mount:
+    src: /dev/pve/swap
+    path: none
+    fstype: swap
+    opts: sw
+    state: present
+
+- name: verify swap is active
+  ansible.builtin.command: swapon --show
+  register: swap_status
+  changed_when: false
+
+- name: show swap status
+  ansible.builtin.debug:
+    msg: "{{ swap_status.stdout_lines }}"
+    

@@ -12,3 +12,6 @@
 - ansible.builtin.import_tasks: packages.yaml
 - ansible.builtin.import_tasks: lid_switch.yaml
 - ansible.builtin.import_tasks: beep.yaml
+- ansible.builtin.import_tasks: swap.yaml
+  tags: swap
+  

@@ -61,3 +61,11 @@ Dry run (check mode):
 ```bash
 ansible-playbook site.yaml --check
 ```
+
+## A la carte tasks
+### swap
+```bash
+ansible-playbook site.yaml --tags swap --limit proxmox_hosts
+ansible-playbook site.yaml --tags swap --limit pve-node-01
+ansible-playbook site.yaml --tags swap --limit pve-node-01 -e "swap_size=16G"
+```
