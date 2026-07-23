@@ -69,3 +69,10 @@ ansible-playbook site.yaml --tags swap --limit proxmox_hosts
 ansible-playbook site.yaml --tags swap --limit pve-node-01
 ansible-playbook site.yaml --tags swap --limit pve-node-01 -e "swap_size=16G"
 ```
+
+### battery
+```bash
+ansible-playbook site.yaml --tags battery --limit proxmox_hosts
+ansible-playbook site.yaml --tags battery --limit pve-node-01
+ansible-playbook site.yaml --tags battery --limit pve-node-01 -e "charging_limit_low=50 charging_limit_high=80"
+```
