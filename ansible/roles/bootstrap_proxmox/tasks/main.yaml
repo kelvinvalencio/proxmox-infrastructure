@@ -14,4 +14,6 @@
 - ansible.builtin.import_tasks: beep.yaml
 - ansible.builtin.import_tasks: swap.yaml
   tags: swap
+- ansible.builtin.import_tasks: battery_limit.yaml
+  tags: battery
   

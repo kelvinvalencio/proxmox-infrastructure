@@ -1,0 +1,17 @@
+---
+- name: install tlp
+  ansible.builtin.apt:
+    name: tlp
+    state: present
+  notify: Restart TLP
+
+- name: configure battery level
+  ansible.builtin.lineinfile:
+    path: /etc/tlp.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  loop:
+    - { regexp: '^#?START_CHARGE_THRESH_BAT0=', line: "START_CHARGE_THRESH_BAT0={{ charging_limit_low }}" }
+    - { regexp: '^#?STOP_CHARGE_THRESH_BAT0=', line: "STOP_CHARGE_THRESH_BAT0={{ charging_limit_high }}" }
+  notify: Restart TLP

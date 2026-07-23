@@ -13,3 +13,9 @@
     reboot_timeout: 300
   listen: reboot after initramfs
  
+- name: restart tlp
+  ansible.builtin.systemd:
+    name: tlp
+    state: restarted
+    enabled: true
+    
