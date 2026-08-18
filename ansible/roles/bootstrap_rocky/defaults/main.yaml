@@ -14,5 +14,7 @@ rocky_common_packages:
   - rsync
   - nginx
   - nginx-mod-stream
+  - python3
+  - python3-pip
 
 docker_compose_dest: /usr/local/bin/docker-compose
