@@ -1,0 +1,15 @@
+# Managed by Ansible (bootstrap_rocky) — do not edit by hand.
+[commands]
+upgrade_type = {{ security_upgrade_type }}
+random_sleep = 360
+network_online_timeout = 60
+download_updates = yes
+apply_updates = yes
+reboot = {{ security_auto_reboot }}
+
+[emitters]
+emit_via = stdio
+system_name = {{ inventory_hostname }}
+
+[base]
+debuglevel = 1

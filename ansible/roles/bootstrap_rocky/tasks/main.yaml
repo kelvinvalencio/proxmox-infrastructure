@@ -10,6 +10,12 @@
     success_msg: "OS check passed — Rocky Linux 9 confirmed."
 
 - ansible.builtin.import_tasks: packages.yaml
+- ansible.builtin.import_tasks: security_updates.yaml
+  when: security_auto_updates | bool
+  tags: [security, patching]
+- ansible.builtin.import_tasks: kernel_hardening.yaml
+  when: kernel_hardening | bool
+  tags: [security, hardening]
 - ansible.builtin.import_tasks: selinux.yaml
 - ansible.builtin.import_tasks: system.yaml
 - ansible.builtin.import_tasks: sshd.yaml
