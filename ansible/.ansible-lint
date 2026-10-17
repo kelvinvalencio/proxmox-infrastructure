@@ -1,0 +1,20 @@
+---
+# Rules the repo deliberately diverges from — silenced so CI reflects the
+# project's actual conventions.
+skip_list:
+  - name[casing]              # task/handler names are intentionally lowercase
+  - name[missing]            # import_tasks entries are left unnamed
+  - name[play]               # plays/imports in site.yaml are unnamed
+  - var-naming[no-role-prefix]  # vars are not prefixed with the role name
+  - fqcn[action-core]        # ansible.builtin.yum is used on EL hosts
+  - package-latest           # the security baseline upgrade must use state: latest
+
+# Pre-existing hygiene worth cleaning up — surfaced as warnings, non-blocking.
+warn_list:
+  - yaml[trailing-spaces]
+  - yaml[new-line-at-end-of-file]
+  - schema[meta]             # galaxy_info is missing 'author'
+  - no-changed-when
+  - no-handler               # swap.yaml runs mkswap inline by design, not as a handler
+  - risky-file-permissions
+  - fqcn[canonical]          # ansible.builtin.ini_file -> community.general.ini_file
