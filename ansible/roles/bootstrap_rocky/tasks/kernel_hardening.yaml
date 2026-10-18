@@ -1,0 +1,17 @@
+---
+- name: Deploy kernel hardening sysctl settings
+  ansible.builtin.template:
+    src: 99-kernel-hardening.conf.j2
+    dest: /etc/sysctl.d/99-kernel-hardening.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: reload sysctl
+
+- name: Blacklist rarely-used kernel modules
+  ansible.builtin.template:
+    src: hardening-blacklist.conf.j2
+    dest: /etc/modprobe.d/hardening-blacklist.conf
+    owner: root
+    group: root
+    mode: '0644'

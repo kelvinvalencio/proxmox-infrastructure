@@ -18,3 +18,21 @@ rocky_common_packages:
   - python3-pip
 
 docker_compose_dest: /usr/local/bin/docker-compose
+
+security_auto_updates: true
+security_upgrade_type: security
+security_auto_reboot: "never"
+security_baseline_upgrade: true
+
+kernel_hardening: true
+kernel_blacklist_modules:
+  - cramfs
+  - freevxfs
+  - jffs2
+  - hfs
+  - hfsplus
+  - udf
+  - dccp
+  - sctp
+  - rds
+  - tipc

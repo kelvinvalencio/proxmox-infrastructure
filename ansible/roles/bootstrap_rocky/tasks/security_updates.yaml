@@ -1,0 +1,27 @@
+---
+- name: Apply a security baseline upgrade
+  ansible.builtin.yum:
+    name: "*"
+    state: latest
+    security: true
+    update_cache: true
+  when: security_baseline_upgrade | bool
+
+- name: Install dnf-automatic
+  ansible.builtin.yum:
+    name: dnf-automatic
+    state: present
+
+- name: Configure dnf-automatic
+  ansible.builtin.template:
+    src: automatic.conf.j2
+    dest: /etc/dnf/automatic.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Enable and start dnf-automatic timer
+  ansible.builtin.systemd:
+    name: dnf-automatic.timer
+    enabled: true
+    state: started

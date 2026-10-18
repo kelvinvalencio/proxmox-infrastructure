@@ -1,0 +1,7 @@
+# Managed by Ansible (bootstrap_rocky) — do not edit by hand.
+# Prevent loading of rarely-used kernel modules that are a recurring source
+# of kernel CVEs. Full effect after reboot.
+{% for mod in kernel_blacklist_modules %}
+install {{ mod }} /bin/true
+blacklist {{ mod }}
+{% endfor %}
